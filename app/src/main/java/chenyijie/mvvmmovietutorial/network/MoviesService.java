@@ -1,9 +1,9 @@
 package chenyijie.mvvmmovietutorial.network;
 
 import chenyijie.mvvmmovietutorial.model.AllMovies;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * 豆瓣電影API:
@@ -14,6 +14,8 @@ import rx.Observable;
 
 public interface MoviesService {
     @GET("v2/movie/search")
+//    Observable<AllMovies> getAllMovies(@Query("tag") String tag
+//            , @Query("start") int start, @Query("count") int count);
     Observable<AllMovies> getAllMovies(@Query("tag") String tag
             , @Query("start") int start, @Query("count") int count);
 }

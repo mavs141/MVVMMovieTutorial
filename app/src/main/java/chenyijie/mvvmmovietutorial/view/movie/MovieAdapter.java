@@ -24,9 +24,13 @@ public class MovieAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<Movie> movies ;
 
-    public MovieAdapter(Context context, List<Movie> movies){
+    public MovieAdapter(Context context){
         this.context = context;
+    }
+
+    public void setMovies(List<Movie> movies){
         this.movies = movies;
+        notifyDataSetChanged();
     }
 
     @Override

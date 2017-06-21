@@ -1,7 +1,8 @@
 package chenyijie.mvvmmovietutorial.network;
 
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -10,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
     private static final String URL = "https://api.douban.com/";
-    private MoviesService movieService;
     private static ApiManager instance;
 
     public static ApiManager getInstance(){
@@ -21,7 +21,8 @@ public class ApiManager {
     public MoviesService getMovie(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
