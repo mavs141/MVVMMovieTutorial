@@ -15,6 +15,7 @@ import chenyijie.mvvmmovietutorial.BR;
 import chenyijie.mvvmmovietutorial.R;
 import chenyijie.mvvmmovietutorial.databinding.MovieItemBinding;
 import chenyijie.mvvmmovietutorial.model.Movie;
+import chenyijie.mvvmmovietutorial.viewmodel.ItemMovieViewModel;
 
 /**
  * Created by chenyijie on 2017/6/13.
@@ -41,10 +42,10 @@ public class MovieAdapter extends RecyclerView.Adapter {
                 R.layout.movie_item,
                 parent,
                 false);
-
-        MovieHolder holder = new MovieHolder(binding.getRoot());
-        holder.setBinding(binding);
-        return holder;
+//        MovieHolder holder = new MovieHolder(binding.getRoot());
+//        holder.setBinding(binding);
+//        return holder;
+        return new MovieHolder(binding);
     }
 
     @Override
@@ -56,8 +57,9 @@ public class MovieAdapter extends RecyclerView.Adapter {
                 .fitCenter()
                 .into(movieHolder.binding.imageMovie);
         //todo 研究一下這邊是幹嘛的
-        movieHolder.binding.setVariable(BR.movie, selectedMovie);
-        movieHolder.binding.executePendingBindings();
+//        movieHolder.binding.setVariable(BR.movie, selectedMovie);
+//        movieHolder.binding.executePendingBindings(); // 要求view holder立即綁定view
+        movieHolder.bindMovie(selectedMovie);
     }
 
     @Override
@@ -73,12 +75,25 @@ public class MovieAdapter extends RecyclerView.Adapter {
             super(itemView);
         }
 
+        public MovieHolder(MovieItemBinding binding){
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
         public MovieItemBinding getBinding(){
             return this.binding;
         }
 
         public void setBinding(MovieItemBinding binding){
             this.binding = binding;
+        }
+
+        public void bindMovie(Movie movie){
+            if(binding.getItemMovieViewModel() == null){
+                binding.setItemMovieViewModel(new ItemMovieViewModel(movie));
+            }else{
+                binding.getItemMovieViewModel().setMovie(movie);
+            }
         }
 
     }
